@@ -145,9 +145,11 @@ class CpuStats(Stats):
 class NetworkStats(Stats):
     @classmethod
     def read(cls, container, stats, t):
-        items = sorted(stats['network'].items())
-        cls.emit(container, 'network.usage', [x[1] for x in items], t=t)
-
+        # Version 1.18 of the Docker API and later changes the stats API to
+        # return network counters per interface instead of total. We should do
+        # this as well.
+        for iface, iface_stats in stats['networks'].items():
+            cls.emit(container, 'network.usage', iface_stats.values(), type_instance=iface, t=t)
 
 class MemoryStats(Stats):
     @classmethod
