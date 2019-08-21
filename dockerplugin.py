@@ -21,7 +21,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Requirements: docker-py
+# Requirements: docker
+#               py-dateutil
 
 import dateutil.parser
 from distutils.version import StrictVersion
@@ -280,9 +281,8 @@ class DockerPlugin:
                 self.timeout = int(node.values[0])
 
     def init_callback(self):
-        self.client = docker.Client(
-            base_url=self.docker_url,
-            version=DockerPlugin.MIN_DOCKER_API_VERSION)
+        self.client = docker.APIClient(
+            base_url=self.docker_url)
         self.client.timeout = self.timeout
 
         # Check API version for stats endpoint support.
