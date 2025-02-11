@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: docker-collectd-plugin
+  description: docker-collectd-plugin
+  annotations:
+    business-unit: EverHealth
+    github.com/project-slug: updox/docker-collectd-plugin
+    product: UPD
+spec:
+  type: service
+  lifecycle: production
+  owner: EverHealth
+  implementation:
+    languages:
+    - Python
